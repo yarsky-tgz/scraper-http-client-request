@@ -1,15 +1,8 @@
-const merge = require('deepmerge');
-const request = require('request-promise-native');
-const CloudflareBypasser = require('cloudflare-bypasser');
-const promiseRetryOrigin = require('promise-retry');
-const NotRetryableError = require('./errors/NotRetryableError');
-
-class ResponseError extends Error {
-  constructor(message, response) {
-    super(message);
-    this.response = response;
-  }
-}
+const merge = require('deepmerge')
+const request = require('request-promise-native')
+const CloudflareBypasser = require('cloudflare-bypasser')
+const promiseRetryOrigin = require('promise-retry')
+const { ResponseError, NotRetryableError } = require('./errors')
 
 const DEFAULT_OPTIONS = {
   json: true,
@@ -34,23 +27,7 @@ const DEFAULT_OPTIONS = {
     'upgrade-insecure-requests': 1,
   },
 };
-const STAGES_CONSTANTS = {
-  RAW: 0,
-  CLOUDFLARE: 1,
-  PROXIED_RAW: 2,
-  PROXIED_CLOUDFLARE: 3,
-};
-const STAGE_DESCRIPTION = {
-  [STAGES_CONSTANTS.RAW]: 'direct connection',
-  [STAGES_CONSTANTS.CLOUDFLARE]: 'cloudflare bypasser',
-  [STAGES_CONSTANTS.PROXIED_RAW]: 'proxy',
-  [STAGES_CONSTANTS.PROXIED_CLOUDFLARE]: 'proxied cloudflare bypasser',
-};
-const RETRY_OPTIONS = {
-  retries: 10,
-  factor: 0,
-  minTimeout: 0,
-};
+const { STAGE_DESCRIPTION, STAGES_CONSTANTS, RETRY_OPTIONS } = require('./constants')
 
 const clientTypes = [
   options => request.defaults(options),
@@ -73,7 +50,7 @@ function getClients(proxyWrapper, jar) {
   return clients;
 }
 
-const clientConstructor = (limiter) => {
+const clientConstructor = (limiter, promiseRetryOptions = null) => {
   const jar = request.jar();
   let proxy;
   let additionalOptions;
@@ -123,21 +100,24 @@ const clientConstructor = (limiter) => {
           //log.error(`retrying ${options.url || options} because ${errorMessage}`);
           retry(e);
         });
-    }, RETRY_OPTIONS);
+    }, promiseRetryOptions ? promiseRetryOptions : RETRY_OPTIONS);
   };
-  requestWrapper.jar = jar;
+  requestWrapper.jar = jar
   requestWrapper.addOptions = (options) => {
-    additionalOptions = options;
-  };
+    additionalOptions = options
+  }
   requestWrapper.setStage = (stage) => {
-    initialStage = stage;
-  };
+    initialStage = stage
+  }
+  requestWrapper.setPromiseRetryOptions = (options) => {
+    promiseRetryOptions = options
+  }
   requestWrapper.setProxy = ({ host, port }) => {
-    proxy = `http://${host}:${port}`;
-  };
+    proxy = `http://${host}:${port}`
+  }
   requestWrapper.shouldUseProxyNextTime = () => {
-    shouldUseProxyNextTime = true;
-  };
+    shouldUseProxyNextTime = true
+  }
   return requestWrapper;
 };
 clientConstructor.stages = STAGES_CONSTANTS;

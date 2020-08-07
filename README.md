@@ -18,11 +18,13 @@ You will get HTTP __client__ [`request-promise-native`](https://npmjs.com/packag
 and it will be wrapped into created by you [bottleneck](https://npmjs.com/package/bottleneck)
 you can immediately scrape something after that, using by default *direct connection*
 
-And then, if *client* will get any error - we will retry with **proxy**
+And then, if *client* will throw any error - we will retry with **proxy**
 
-And then, if *client* will get any error - we will retry without **proxy** but with `cloudflare-bypasser`using direct connection
+And then, if *client* will throw any error - we will retry without **proxy** but with `cloudflare-bypasser`using direct connection
 
-And then, if *client* still getting error - we will retry both together with **proxy** and with `cloudflare-bypasser`
+And then, if *client* still throwing error - we will retry both together with **proxy** and with `cloudflare-bypasser`
+
+And then if *client* STILL throws error - we again will try to access it directly, and everything will repeat again from first stage as long, as many retries you've set (by default `10`) 
 
 
 ## Default options
@@ -82,4 +84,5 @@ client.setStage(PROXIED_CLOUDFLARE) //get full needed security from start, to av
 client.setProxy({ host: '', port: 3128 })
 client.shouldUseProxyNextTime() //it will use proxy next time
 client.addOptions() //merge some options to defaults of `request-promise-native`
+client.setPromiseRetryOptions(options) //you can set your own
 ```
