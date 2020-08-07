@@ -1,0 +1,33 @@
+{
+  "name": "scraper-http-client-request",
+  "version": "1.0.0",
+  "description": "Powerful HTTP client for scrapers with cookies jar, cloudflare bypasser, rate limiter, concurrency and retrys",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yarsky-tgz/scraper-http-client-request.git"
+  },
+  "keywords": [
+    "scraper",
+    "request-promise",
+    "http-client",
+    "scraping",
+    "toolkit",
+    "cloudflare-bypasser"
+  ],
+  "author": "Yaroslav Dobzhanskyi <yarsky@carpathian.ninja>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yarsky-tgz/scraper-http-client-request/issues"
+  },
+  "homepage": "https://github.com/yarsky-tgz/scraper-http-client-request#readme",
+  "dependencies": {
+    "cloudflare-bypasser": "0.0.3",
+    "deepmerge": "^4.2.2",
+    "promise-retry": "^2.0.1",
+    "request-promise-native": "^1.0.9"
+  }
+}
