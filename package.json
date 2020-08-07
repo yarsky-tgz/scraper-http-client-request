@@ -1,6 +1,6 @@
 {
   "name": "scraper-http-client-request",
-  "version": "1.0.1-beta.6",
+  "version": "1.0.1-beta.7",
   "description": "Powerful HTTP client for scrapers with cookies jar, cloudflare bypasser, rate limiter, concurrency and retrys",
   "main": "index.js",
   "scripts": {
