@@ -1,6 +1,6 @@
 {
   "name": "scraper-http-client-request",
-  "version": "1.0.1-beta.5",
+  "version": "1.0.1-beta.6",
   "description": "Powerful HTTP client for scrapers with cookies jar, cloudflare bypasser, rate limiter, concurrency and retrys",
   "main": "index.js",
   "scripts": {
@@ -29,5 +29,12 @@
     "deepmerge": "^4.2.2",
     "promise-retry": "^2.0.1",
     "request-promise-native": "^1.0.9"
+  },
+  "devDependencies": {
+    "eslint": "^7.6.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jest": "^23.20.0"
   }
 }
