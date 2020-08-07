@@ -17,9 +17,13 @@ You will get HTTP __client__ [`request-promise-native`](https://npmjs.com/packag
 
 and it will be wrapped into created by you [bottleneck](https://npmjs.com/package/bottleneck)
 you can immediately scrape something after that, using by default *direct connection*
+
 And then, if *client* will get any error - we will retry with **proxy**
+
 And then, if *client* will get any error - we will retry without **proxy** but with `cloudflare-bypasser`using direct connection
+
 And then, if *client* still getting error - we will retry both together with **proxy** and with `cloudflare-bypasser`
+
 
 ## Default options
 
