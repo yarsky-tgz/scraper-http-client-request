@@ -23,5 +23,22 @@ const client = require('scraper-http-client-request')(new Bottleneck({
   maxConcurrent: 10, //concurrent requests at the same time
   minTime: 333 //slow down, limit rate to keep pause between requests, reead the [docs](https://npmjs.com/package/cloudflare-bypasser)
 }))
+const { STAGES: { PROXIED_CLOUDFLARE } } = require('scraper-http-client-request/constants')
+
+/* 
+
+**__Important__** on case of retry we have by default 4 stages cycle. You can set any other starting stage.
+
+In case if we are RAW 'proxy' option will be ignore, but it must be present 
+
+  1. RAW
+  2. CLOUDFLARE
+  3. PROXIED_RAW
+  4. PROXIED_CLOUDFLARE
+  
+*/  
+
+client.setStage(PROXIED_CLOUDFLARE) //get full needed security from start, to avoid pauses on load
+
 
 ```
