@@ -1,7 +1,7 @@
 {
   "name": "scraper-http-client-request",
-  "version": "1.0.1-beta.7",
-  "description": "Powerful HTTP client for scrapers with cookies jar, cloudflare bypasser, rate limiter, concurrency and retrys",
+  "version": "1.0.1",
+  "description": "HTTP client for scrapers with guaranted delivery (retry), concurrency, cookies jar, zlib, Cloudflare bypasser, rate limit (throttle)",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
